@@ -2,15 +2,20 @@ import 'package:biscuit_production/auth_pages/signup_page.dart';
 import 'package:biscuit_production/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class IntroPage extends StatefulWidget {
-  const IntroPage({super.key});
+import '../constants.dart';
+import '../splash_screen.dart';
+import 'auth_screen.dart';
+
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<IntroPage> createState() => IntroPageState();
+  State<LoginPage> createState() => LoginPageState();
 }
 
-class IntroPageState extends State<IntroPage> {
+class LoginPageState extends State<LoginPage> {
   bool _showPassword = false;
   bool _loginWithNumber = false;
   bool _otpSent = false;
@@ -23,17 +28,27 @@ class IntroPageState extends State<IntroPage> {
   String? _userId = null;
 
   void LoginWithEmail() async {
-    var userToken = await AuthService.instance.loginWithEmailAndPassword(
+    userToken = await AuthService.instance.loginWithEmailAndPassword(
       email: _emailText.trim(),
       password: _passwordText.trim(),
     );
     if (userToken != null) {
-      showDialog(
+      await showDialog(
         context: context,
         builder: (context) => const AlertDialog(
           content: Text("Successfully Logged in"),
         ),
       );
+      SetToken();
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return const AuthScreen();
+            },
+          ),
+        );
+
       return;
     }
     showDialog(
@@ -70,17 +85,31 @@ class IntroPageState extends State<IntroPage> {
     );
   }
   void VerifyOTP() async {
-     var userToken = await AuthService.instance.verifyOTP(
+    userToken = await AuthService.instance.verifyOTP(
       userId: _userId!,
       otp: _otpText
     );
+    
     if (userToken != null) {
+
+
+
+
       showDialog(
         context: context,
         builder: (context) => const AlertDialog(
           content: Text("Successfully Logged in"),
         ),
       );
+       SetToken();
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return const AuthScreen();
+            },
+          ),
+        );
       return;
     }
     showDialog(
@@ -89,6 +118,15 @@ class IntroPageState extends State<IntroPage> {
         content: Text("something went wrong"),
       ),
     );
+  }
+
+
+  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
   }
 
   @override
@@ -311,11 +349,11 @@ class IntroPageState extends State<IntroPage> {
                           if (_loginFormKey.currentState!.validate()) {
                             _loginFormKey.currentState!.save();
                             if (_loginWithNumber) {
-                              if(_otpSent){
-                                VerifyOTP();
+                              if(!_otpSent){
+                                LoginWithNumber();
                                 return;
                               }
-                              LoginWithNumber();
+                              VerifyOTP();
                               return;
                             }
                             LoginWithEmail();

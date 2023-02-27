@@ -1,15 +1,15 @@
+import 'package:biscuit_production/auth_pages/auth_screen.dart';
 import 'package:biscuit_production/constants.dart';
 import 'package:flutter/material.dart';
 
-class IntroPage extends StatefulWidget {
-  const IntroPage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<IntroPage> createState() => IntroPageState();
+  State<HomePage> createState() => HomePageState();
 }
 
-class IntroPageState extends State<IntroPage> {
-
+class HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
@@ -20,10 +20,39 @@ class IntroPageState extends State<IntroPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       body: SafeArea(
-        child: Center(
-          child: Text(userToken ?? "No data"),
-        )
-      ),
+          child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Logged In with token : \n $userToken",
+              style: TextStyle(color: Colors.white),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                RemoveToken();
+                userToken = null;
+                Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return const AuthScreen();
+            },
+          ),
+        );
+              },
+              child: Text(
+                "SignOut",
+                style: TextStyle(color: Colors.white),
+              ),
+            )
+          ],
+        ),
+      )),
     );
   }
 }

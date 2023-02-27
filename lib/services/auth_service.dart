@@ -57,6 +57,10 @@ class AuthService {
       });
 
       final data = jsonDecode(response.body);
+
+      print("OTP sent : $otp");
+      print("UserID sent : $userId");
+      print(data.toString());
       var token = data["token"];
       return token;
     } catch (e) {

@@ -1,7 +1,8 @@
-import 'package:biscuit_production/auth_pages/login_page.dart';
+import 'package:biscuit_production/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-void main() {
+void main() async{
+ await WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
           textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)),
       debugShowCheckedModeBanner: false,
       title: 'Biscuit',
-      home: const IntroPage(),
+      home: const SplashScreen(),
     );
   }
 }
