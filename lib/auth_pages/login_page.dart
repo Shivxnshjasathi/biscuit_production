@@ -41,13 +41,13 @@ class LoginPageState extends State<LoginPage> {
       );
       SetToken();
       Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return const AuthScreen();
-            },
-          ),
-        );
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return const AuthScreen();
+          },
+        ),
+      );
 
       return;
     }
@@ -84,32 +84,27 @@ class LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
   void VerifyOTP() async {
-    userToken = await AuthService.instance.verifyOTP(
-      userId: _userId!,
-      otp: _otpText
-    );
-    
+    userToken =
+        await AuthService.instance.verifyOTP(userId: _userId!, otp: _otpText);
+
     if (userToken != null) {
-
-
-
-
       showDialog(
         context: context,
         builder: (context) => const AlertDialog(
           content: Text("Successfully Logged in"),
         ),
       );
-       SetToken();
+      SetToken();
       Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return const AuthScreen();
-            },
-          ),
-        );
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return const AuthScreen();
+          },
+        ),
+      );
       return;
     }
     showDialog(
@@ -120,13 +115,10 @@ class LoginPageState extends State<LoginPage> {
     );
   }
 
-
-  
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-
   }
 
   @override
@@ -173,74 +165,102 @@ class LoginPageState extends State<LoginPage> {
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: TextFormField(
-                                      readOnly: _otpSent,
-                                      keyboardType: TextInputType.phone,
-                                      inputFormatters: [
-                                        FilteringTextInputFormatter.digitsOnly,
-                                        LengthLimitingTextInputFormatter(10)
-                                      ],
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
-                                      decoration: InputDecoration(
-                                          hintText: "Enter Mobile",
-                                          hintStyle: TextStyle(
-                                              color: Colors.grey.shade600,
-                                              fontWeight: FontWeight.bold),
-                                          filled: true,
-                                          fillColor: Colors.grey.shade900,
-                                          border: InputBorder.none),
-                                      onSaved: (newValue) {
-                                        _mobileNumberText = newValue!.trim();
-                                      },
-                                      validator: (value) =>
-                                          value!.trim().length != 10
-                                              ? "Enter your valid Number"
-                                              : null,
+                                  TextFormField(
+                                    readOnly: _otpSent,
+                                    keyboardType: TextInputType.phone,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly,
+                                      LengthLimitingTextInputFormatter(10)
+                                    ],
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.all(15),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFDD904A),
+                                          )),
+                                      hintText: "Enter Mobile",
+                                      hintStyle: TextStyle(
+                                          color: Colors.grey.shade600,
+                                          fontWeight: FontWeight.bold),
+                                      filled: true,
+                                      fillColor: Colors.grey.shade900,
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide()),
                                     ),
+                                    onSaved: (newValue) {
+                                      _mobileNumberText = newValue!.trim();
+                                    },
+                                    validator: (value) =>
+                                        value!.trim().length != 10
+                                            ? "Enter your valid Number"
+                                            : null,
                                   ),
                                   const SizedBox(
                                     height: 20,
                                   ),
-                                  _otpSent ?
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(bottom: 20),
-                                      child: TextFormField(
-                                        keyboardType: TextInputType.number,
-                                        inputFormatters: [
-                                          FilteringTextInputFormatter.digitsOnly,
-                                          LengthLimitingTextInputFormatter(6)
-                                        ],
-                                        style: const TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20),
-                                        decoration: InputDecoration(
-                                            hintText: "Enter OTP",
-                                            hintStyle: TextStyle(
-                                                color: Colors.grey.shade600,
-                                                fontWeight: FontWeight.bold),
-                                            filled: true,
-                                            fillColor: Colors.grey.shade900,
-                                            border: InputBorder.none),
-                                        onSaved: (newValue) {
-                                          _otpText = newValue!.trim();
-                                        },
-                                        validator: (value) =>
-                                            value!.trim().length != 6
-                                                ? "Enter valid Otp"
-                                                : null,
-                                      ),
-                                    ),
-                                  ) :
-                                  const SizedBox(
-                                  ),
+                                  _otpSent
+                                      ? ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 20),
+                                            child: TextFormField(
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              inputFormatters: [
+                                                FilteringTextInputFormatter
+                                                    .digitsOnly,
+                                                LengthLimitingTextInputFormatter(
+                                                    6)
+                                              ],
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                              decoration: InputDecoration(
+                                                contentPadding:
+                                                    EdgeInsets.all(15),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        borderSide: BorderSide(
+                                                          color:
+                                                              Color(0xFFDD904A),
+                                                        )),
+                                                hintText: "Enter OTP",
+                                                hintStyle: TextStyle(
+                                                    color: Colors.grey.shade600,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                filled: true,
+                                                fillColor: Colors.grey.shade900,
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                              onSaved: (newValue) {
+                                                _otpText = newValue!.trim();
+                                              },
+                                              validator: (value) =>
+                                                  value!.trim().length != 6
+                                                      ? "Enter valid Otp"
+                                                      : null,
+                                            ),
+                                          ),
+                                        )
+                                      : const SizedBox(),
                                 ],
                               )
                             : Column(
@@ -254,32 +274,38 @@ class LoginPageState extends State<LoginPage> {
                                   const SizedBox(
                                     height: 10,
                                   ),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: TextFormField(
-                                      initialValue: _emailText,
-
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
-                                      decoration: InputDecoration(
-                                          hintText: "Enter your email",
-                                          hintStyle: TextStyle(
-                                              color: Colors.grey.shade600,
-                                              fontWeight: FontWeight.bold),
-                                          filled: true,
-                                          fillColor: Colors.grey.shade900,
-                                          border: InputBorder.none),
-                                      onSaved: (newValue) {
-                                        _emailText = newValue!.trim();
-                                      },
-                                      validator: (value) =>
-                                          value!.trim().isEmpty ||
-                                                  !value.contains("@")
-                                              ? "Enter your valid email"
-                                              : null,
+                                  TextFormField(
+                                    initialValue: _emailText,
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.all(15),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFDD904A),
+                                          )),
+                                      hintText: "Enter your email",
+                                      hintStyle: TextStyle(
+                                          color: Colors.grey.shade600,
+                                          fontWeight: FontWeight.bold),
+                                      filled: true,
+                                      fillColor: Colors.grey.shade900,
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
                                     ),
+                                    onSaved: (newValue) {
+                                      _emailText = newValue!.trim();
+                                    },
+                                    validator: (value) =>
+                                        value!.trim().isEmpty ||
+                                                !value.contains("@")
+                                            ? "Enter your valid email"
+                                            : null,
                                   ),
                                   const SizedBox(height: 10),
                                   const Text(
@@ -288,57 +314,65 @@ class LoginPageState extends State<LoginPage> {
                                         color: Colors.white, fontSize: 20),
                                   ),
                                   const SizedBox(height: 10),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: TextFormField(
-                                      obscureText: !_showPassword,
-                                      style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
-                                      decoration: InputDecoration(
-                                        floatingLabelBehavior:
-                                            FloatingLabelBehavior.always,
-                                        hintText: "Enter your password",
-                                        hintStyle: TextStyle(
-                                            color: Colors.grey.shade600,
-                                            fontWeight: FontWeight.bold),
-                                        filled: true,
-                                        fillColor: Colors.grey.shade900,
-                                        border: InputBorder.none,
-                                        suffixIcon: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              _showPassword = !_showPassword;
-                                            });
-                                          },
-                                          child: Icon(
-                                            !_showPassword
-                                                ? Icons.visibility_off_outlined
-                                                : Icons.visibility_outlined,
-                                            color: Colors.grey,
-                                          ),
+                                  TextFormField(
+                                    obscureText: !_showPassword,
+                                    style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.all(15),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFDD904A),
+                                          )),
+                                      floatingLabelBehavior:
+                                          FloatingLabelBehavior.always,
+                                      hintText: "Enter your password",
+                                      hintStyle: TextStyle(
+                                          color: Colors.grey.shade600,
+                                          fontWeight: FontWeight.bold),
+                                      filled: true,
+                                      fillColor: Colors.grey.shade900,
+                                      border:  OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                      suffixIcon: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            _showPassword = !_showPassword;
+                                          });
+                                        },
+                                        child: Icon(
+                                          !_showPassword
+                                              ? Icons.visibility_off_outlined
+                                              : Icons.visibility_outlined,
+                                          color: Colors.grey,
                                         ),
                                       ),
-                                      onSaved: (newValue) {
-                                        _passwordText = newValue!.trim();
-                                      },
-                                      validator: (value) =>
-                                          value!.trim().isEmpty
-                                              ? "Enter your password"
-                                              : null,
                                     ),
+                                    onSaved: (newValue) {
+                                      _passwordText = newValue!.trim();
+                                    },
+                                    validator: (value) => value!.trim().isEmpty
+                                        ? "Enter your password"
+                                        : null,
                                   ),
                                 ],
                               ),
                       ),
-                      Divider(color: Colors.white,height: 40,thickness: 1),
+                      Divider(color: Colors.white, height: 40, thickness: 1),
                       MaterialButton(
                         color: const Color(0xFFDD904A),
                         child: Padding(
                           padding: EdgeInsets.all(10),
                           child: Text(
-                            _loginWithNumber && !_otpSent ? " Send otp" :"Login",
+                            _loginWithNumber && !_otpSent
+                                ? " Send otp"
+                                : "Login",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -349,7 +383,7 @@ class LoginPageState extends State<LoginPage> {
                           if (_loginFormKey.currentState!.validate()) {
                             _loginFormKey.currentState!.save();
                             if (_loginWithNumber) {
-                              if(!_otpSent){
+                              if (!_otpSent) {
                                 LoginWithNumber();
                                 return;
                               }
@@ -397,7 +431,11 @@ class LoginPageState extends State<LoginPage> {
                           ),
                         ],
                       ),
-                      Divider(color: Colors.white,height: 40,thickness: 1,),
+                      Divider(
+                        color: Colors.white,
+                        height: 40,
+                        thickness: 1,
+                      ),
                     ],
                   ),
                   Padding(
@@ -413,7 +451,6 @@ class LoginPageState extends State<LoginPage> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            
                             // Navigator
                             Navigator.push(
                               context,

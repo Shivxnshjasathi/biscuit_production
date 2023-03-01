@@ -19,7 +19,7 @@ class SignUpPageState extends State<SignUpPage> {
   String _mobileNumberText = '';
   String _dobText = '';
   String _genderText = '';
-  
+
   final _dobTextController = TextEditingController();
 
   @override
@@ -65,13 +65,23 @@ class SignUpPageState extends State<SignUpPage> {
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
                           decoration: InputDecoration(
-                              hintText: "Enter your name",
-                              hintStyle: TextStyle(
-                                  color: Colors.grey.shade600,
-                                  fontWeight: FontWeight.bold),
-                              filled: true,
-                              fillColor: Colors.grey.shade900,
-                              border: InputBorder.none),
+                            contentPadding: EdgeInsets.all(15),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFDD904A),
+                                          )),
+                            hintText: "Enter your name",
+                            hintStyle: TextStyle(
+                                color: Colors.grey.shade600,
+                                fontWeight: FontWeight.bold),
+                            filled: true,
+                            fillColor: Colors.grey.shade900,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
                           onSaved: (newValue) {
                             _nameText = newValue!.trim();
                           },
@@ -89,13 +99,23 @@ class SignUpPageState extends State<SignUpPage> {
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
                           decoration: InputDecoration(
-                              hintText: "Enter your email",
-                              hintStyle: TextStyle(
-                                  color: Colors.grey.shade600,
-                                  fontWeight: FontWeight.bold),
-                              filled: true,
-                              fillColor: Colors.grey.shade900,
-                              border: InputBorder.none),
+                            contentPadding: EdgeInsets.all(15),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFDD904A),
+                                          )),
+                            hintText: "Enter your email",
+                            hintStyle: TextStyle(
+                                color: Colors.grey.shade600,
+                                fontWeight: FontWeight.bold),
+                            filled: true,
+                            fillColor: Colors.grey.shade900,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
                           onSaved: (newValue) {
                             _emailText = newValue!.trim();
                           },
@@ -114,13 +134,23 @@ class SignUpPageState extends State<SignUpPage> {
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
                           decoration: InputDecoration(
-                              hintText: "Enter your password",
-                              hintStyle: TextStyle(
-                                  color: Colors.grey.shade600,
-                                  fontWeight: FontWeight.bold),
-                              filled: true,
-                              fillColor: Colors.grey.shade900,
-                              border: InputBorder.none),
+                            contentPadding: EdgeInsets.all(15),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFDD904A),
+                                          )),
+                            hintText: "Enter your password",
+                            hintStyle: TextStyle(
+                                color: Colors.grey.shade600,
+                                fontWeight: FontWeight.bold),
+                            filled: true,
+                            fillColor: Colors.grey.shade900,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
                           onSaved: (newValue) {
                             _passwordText = newValue!.trim();
                           },
@@ -151,13 +181,23 @@ class SignUpPageState extends State<SignUpPage> {
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
                           inputDecoration: InputDecoration(
-                              hintText: "Enter your Mobile Number",
-                              hintStyle: TextStyle(
-                                  color: Colors.grey.shade600,
-                                  fontWeight: FontWeight.bold),
-                              filled: true,
-                              fillColor: Colors.grey.shade900,
-                              border: InputBorder.none),
+                            contentPadding: EdgeInsets.all(15),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFDD904A),
+                                          )),
+                            hintText: "Enter your Mobile Number",
+                            hintStyle: TextStyle(
+                                color: Colors.grey.shade600,
+                                fontWeight: FontWeight.bold),
+                            filled: true,
+                            fillColor: Colors.grey.shade900,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
                           onSaved: (newValue) {
                             _mobileNumberText = newValue.phoneNumber!.trim();
                           },
@@ -172,7 +212,13 @@ class SignUpPageState extends State<SignUpPage> {
                         borderRadius: BorderRadius.circular(10),
                         child: TextFormField(
                           onTap: () {
-                            showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1900), lastDate: DateTime.now()).then((value) => _dobTextController.text = DateFormat("dd-MM-yyyy").format(value!));
+                            showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1900),
+                                    lastDate: DateTime.now())
+                                .then((value) => _dobTextController.text =
+                                    DateFormat("dd-MM-yyyy").format(value!));
                           },
                           controller: _dobTextController,
                           readOnly: true,
@@ -181,14 +227,24 @@ class SignUpPageState extends State<SignUpPage> {
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
                           decoration: InputDecoration(
-                              hintText: "Enter your Dob",
-                              suffixIcon: Icon(Icons.calendar_month_outlined),
-                              hintStyle: TextStyle(
-                                  color: Colors.grey.shade600,
-                                  fontWeight: FontWeight.bold),
-                              filled: true,
-                              fillColor: Colors.grey.shade900,
-                              border: InputBorder.none),
+                            contentPadding: EdgeInsets.all(15),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFDD904A),
+                                          )),
+                            hintText: "Enter your Dob",
+                            suffixIcon: Icon(Icons.calendar_month_outlined),
+                            hintStyle: TextStyle(
+                                color: Colors.grey.shade600,
+                                fontWeight: FontWeight.bold),
+                            filled: true,
+                            fillColor: Colors.grey.shade900,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
                           onSaved: (newValue) {
                             _dobText = newValue!.trim();
                             print(_dobText);
@@ -230,13 +286,23 @@ class SignUpPageState extends State<SignUpPage> {
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
                           decoration: InputDecoration(
-                              hintText: "Select Your gender",
-                              hintStyle: TextStyle(
-                                  color: Colors.grey.shade600,
-                                  fontWeight: FontWeight.bold),
-                              filled: true,
-                              fillColor: Colors.grey.shade900,
-                              border: InputBorder.none),
+                            contentPadding: EdgeInsets.all(15),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFDD904A),
+                                          )),
+                            hintText: "Select Your gender",
+                            hintStyle: TextStyle(
+                                color: Colors.grey.shade600,
+                                fontWeight: FontWeight.bold),
+                            filled: true,
+                            fillColor: Colors.grey.shade900,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
                           onSaved: (newValue) {
                             _genderText = newValue!.trim();
                           },
