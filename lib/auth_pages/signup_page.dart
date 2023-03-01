@@ -1,5 +1,7 @@
 import 'package:biscuit_production/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -17,6 +19,8 @@ class SignUpPageState extends State<SignUpPage> {
   String _mobileNumberText = '';
   String _dobText = '';
   String _genderText = '';
+  
+  final _dobTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -72,9 +76,7 @@ class SignUpPageState extends State<SignUpPage> {
                             _nameText = newValue!.trim();
                           },
                           validator: (value) =>
-                              value!.trim().isEmpty
-                                  ? "Enter your name"
-                                  : null,
+                              value!.trim().isEmpty ? "Enter your name" : null,
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -130,12 +132,25 @@ class SignUpPageState extends State<SignUpPage> {
                       const SizedBox(height: 10),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: TextFormField(
-                          style: const TextStyle(
+                        child: InternationalPhoneNumberInput(
+                          maxLength: 10,
+                          selectorConfig: SelectorConfig(
+                            selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                          ),
+                          onInputChanged: (value) {
+                            print(value);
+                          },
+                          keyboardType: TextInputType.number,
+                          formatInput: true,
+                          selectorTextStyle: const TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                          textStyle: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
-                          decoration: InputDecoration(
+                          inputDecoration: InputDecoration(
                               hintText: "Enter your Mobile Number",
                               hintStyle: TextStyle(
                                   color: Colors.grey.shade600,
@@ -144,7 +159,7 @@ class SignUpPageState extends State<SignUpPage> {
                               fillColor: Colors.grey.shade900,
                               border: InputBorder.none),
                           onSaved: (newValue) {
-                            _mobileNumberText = newValue!.trim();
+                            _mobileNumberText = newValue.phoneNumber!.trim();
                           },
                           validator: (value) =>
                               value!.trim().isEmpty || value.length != 10
@@ -156,12 +171,18 @@ class SignUpPageState extends State<SignUpPage> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(10),
                         child: TextFormField(
+                          onTap: () {
+                            showDatePicker(context: context, initialDate: DateTime.now(), firstDate: DateTime(1900), lastDate: DateTime.now()).then((value) => _dobTextController.text = DateFormat("dd-MM-yyyy").format(value!));
+                          },
+                          controller: _dobTextController,
+                          readOnly: true,
                           style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
                           decoration: InputDecoration(
                               hintText: "Enter your Dob",
+                              suffixIcon: Icon(Icons.calendar_month_outlined),
                               hintStyle: TextStyle(
                                   color: Colors.grey.shade600,
                                   fontWeight: FontWeight.bold),
@@ -169,12 +190,11 @@ class SignUpPageState extends State<SignUpPage> {
                               fillColor: Colors.grey.shade900,
                               border: InputBorder.none),
                           onSaved: (newValue) {
-                           _dobText = newValue!.trim();
+                            _dobText = newValue!.trim();
+                            print(_dobText);
                           },
                           validator: (value) =>
-                              value!.trim().isEmpty
-                                  ? "Enter your Dob"
-                                  : null,
+                              value!.trim().isEmpty ? "Enter your Dob" : null,
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -225,7 +245,6 @@ class SignUpPageState extends State<SignUpPage> {
                               : null,
                           onChanged: (String? value) {
                             _genderText = value!.trim();
-
                           },
                         ),
                       ),
@@ -243,7 +262,6 @@ class SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                           onPressed: () async {
-
                             if (_signUpFormKey.currentState!.validate()) {
                               _signUpFormKey.currentState!.save();
                               var userID = await AuthService.instance
@@ -253,9 +271,8 @@ class SignUpPageState extends State<SignUpPage> {
                                       password: _passwordText.trim(),
                                       mobileNumber: _mobileNumberText.trim(),
                                       dob: _dobText.trim(),
-                                      gender: _genderText.trim()
-                                      );
-                              if(userID != null){
+                                      gender: _genderText.trim());
+                              if (userID != null) {
                                 await showDialog(
                                   context: context,
                                   builder: (context) => const AlertDialog(
@@ -266,15 +283,12 @@ class SignUpPageState extends State<SignUpPage> {
                                 return;
                               }
                               await showDialog(
-                                  context: context,
-                                  builder: (context) => const AlertDialog(
-                                    content: Text("Something went wrong"),
-                                  ),
-                                );
-                                return;
-                             
-                                
-                              
+                                context: context,
+                                builder: (context) => const AlertDialog(
+                                  content: Text("Something went wrong"),
+                                ),
+                              );
+                              return;
                             }
                           }),
                       const SizedBox(
@@ -291,11 +305,12 @@ class SignUpPageState extends State<SignUpPage> {
                             onTap: () {
                               Navigator.pop(context);
                             },
-                            child: const Text("Login",
-                                style: TextStyle(
-                                    color: Color(0xFFDD904A),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
+                            child: const Text(
+                              "Login",
+                              style: TextStyle(
+                                  color: Color(0xFFDD904A),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
                             ),
                           )
                         ],

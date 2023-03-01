@@ -82,7 +82,7 @@ class AuthService {
         "name": name,
         "email": email,
         "password": password,
-        "phone": "+91" + mobileNumber,
+        "phone": mobileNumber,
         "dob": dob,
         "gender": gender,
       });

@@ -329,10 +329,10 @@ class LoginPageState extends State<LoginPage> {
                                               : null,
                                     ),
                                   ),
-                                  const SizedBox(height: 20),
                                 ],
                               ),
                       ),
+                      Divider(color: Colors.white,height: 40,thickness: 1),
                       MaterialButton(
                         color: const Color(0xFFDD904A),
                         child: Padding(
@@ -361,7 +361,7 @@ class LoginPageState extends State<LoginPage> {
                         },
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       Row(
                         children: [
@@ -397,40 +397,44 @@ class LoginPageState extends State<LoginPage> {
                           ),
                         ],
                       ),
+                      Divider(color: Colors.white,height: 40,thickness: 1,),
                     ],
                   ),
-                  Row(
-                    children: [
-                      const Text(
-                        "Not a member ? ",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          
-                          // Navigator
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SignUpPage(),
-                            ),
-                          );
-                          setState(() {
-                            _otpSent = false;
-                          });
-                        },
-                        child: const Text(
-                          "Sign up",
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: Row(
+                      children: [
+                        const Text(
+                          "Not a member ? ",
                           style: TextStyle(
-                              color: Color(0xFFDD904A),
+                              color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
                         ),
-                      )
-                    ],
+                        GestureDetector(
+                          onTap: () {
+                            
+                            // Navigator
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const SignUpPage(),
+                              ),
+                            );
+                            setState(() {
+                              _otpSent = false;
+                            });
+                          },
+                          child: const Text(
+                            "Sign up",
+                            style: TextStyle(
+                                color: Color(0xFFDD904A),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),

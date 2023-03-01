@@ -12,7 +12,9 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   google_fonts: ^4.0.3
+  intl: ^0.17.0
   http: ^0.13.5
+  intl_phone_number_input: ^0.7.2
   shared_preferences: ^2.0.18
 
 dev_dependencies:
